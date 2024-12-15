@@ -25,20 +25,8 @@ function processarDadosMaos(marcos) {
 
     if (y1 < 90) {
         if (selecionarFuncao(x1, y1)) {
-            desenhando = false;
             return;
         }
-    }
-
-    if (y1 < y2) {
-        desenhando = false;
-    } else {
-        if (!desenhando) {
-            [ultimoX, ultimoY] = [x1, y1];
-        }
-        desenhando = true;
-        desenhar(x1, y1);
-        [ultimoX, ultimoY] = [x1, y1];
     }
 }
 

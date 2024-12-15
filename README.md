@@ -9,6 +9,12 @@ Este projeto tem como objetivo consumir de forma criativa uma API, **OlimpiAtos 
 
 ---
 
+## Utilização 📸
+
+![image](https://github.com/LKSFerreira/olimpiatos-api/blob/main/exemplificacao_olimpatos-api.gif)
+---
+
+
 ## Principais Funcionalidades 🌟
 - ✋ **Reconhecimento de Gestos das Mãos**: Detecta gestos das mãos usando MediaPipe e TensorFlow, permitindo selecionar o gráfico que será apresentado na tela
 - 📊 **Gráficos Interativos**: Gera gráficos interativos com dados de medalhas olímpicas.
@@ -45,12 +51,6 @@ Este projeto tem como objetivo consumir de forma criativa uma API, **OlimpiAtos 
 
 2. **Execute o Arquivo HTML**:
     Abra o arquivo `index.html` em seu navegador, garantindo que você tenha uma webcam conectada.
-
----
-
-## Capturas de Tela 📸
-
-![image](https://github.com/LKSFerreira/olimpiatos-api/blob/main/exemplificacao_olimpatos-api.gif)
 
 ---
 

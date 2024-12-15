@@ -25,17 +25,6 @@ async function iniciarVideo() {
     video.play();
 }
 
-function desenhar(x, y) {
-    ctx.strokeStyle = corDesenho;
-    ctx.lineWidth = espessuraPincel;
-    ctx.lineJoin = 'round';
-    ctx.beginPath();
-    ctx.moveTo(ultimoX, ultimoY);
-    ctx.lineTo(x, y);
-    ctx.closePath();
-    ctx.stroke();
-}
-
 canvas.addEventListener('mousedown', (e) => {
     desenhando = true;
     [ultimoX, ultimoY] = [e.offsetX, e.offsetY];
@@ -223,6 +212,14 @@ function desenharGrafico(dados, titulo, cor, limpar = false) {
                 title: {
                     display: !!titulo,
                     text: titulo
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    color: 'black',
+                    font: {
+                        weight: 'bold'
+                    }
                 }
             },
             scales: {
@@ -230,16 +227,29 @@ function desenharGrafico(dados, titulo, cor, limpar = false) {
                     display: !limpar,
                     grid: {
                         display: !limpar
+                    },
+                    ticks: {
+                        color: 'black', // Define a cor das legendas do eixo X
+                        font: {
+                            weight: 'bold' // Define as legendas do eixo X como negrito
+                        }
                     }
                 },
                 y: {
                     display: !limpar,
                     grid: {
                         display: !limpar
+                    },
+                    ticks: {
+                        color: 'black', // Define a cor das legendas do eixo Y
+                        font: {
+                            weight: 'bold' // Define as legendas do eixo Y como negrito
+                        }
                     }
                 }
             }
         },
+        plugins: [ChartDataLabels]
     };
 
     const chartCanvas = document.createElement('canvas');
