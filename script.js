@@ -96,17 +96,17 @@ function desenharPaletaCores() {
 
 function selecionarFuncao(x, y) {
     const funcoes = [
-        { xInicio: 100, xFim: 200, yInicio: 10, yFim: 90, funcao: ordenarMedalhas },
-        { xInicio: 250, xFim: 350, yInicio: 10, yFim: 90, funcao: agruparPorContinente },
-        { xInicio: 400, xFim: 500, yInicio: 10, yFim: 90, funcao: rankearContinentes },
-        { xInicio: 550, xFim: 650, yInicio: 10, yFim: 90, funcao: limparGrafico }
+        { xInicio: 100, xFim: 200, yInicio: 10, yFim: 90, funcao: ordenarMedalhas, cor: 'rgba(255, 0, 0, 0.75)' },
+        { xInicio: 250, xFim: 350, yInicio: 10, yFim: 90, funcao: agruparPorContinente, cor: 'rgba(0, 255, 0, 0.75)' },
+        { xInicio: 400, xFim: 500, yInicio: 10, yFim: 90, funcao: rankearContinentes, cor: 'rgba(0, 0, 255, 0.75)' },
+        { xInicio: 550, xFim: 650, yInicio: 10, yFim: 90, funcao: limparGrafico, cor: 'rgba(128, 0, 128, 0.75)' }
     ];
 
     for (let i = 0; i < funcoes.length; i++) {
-        const { xInicio, xFim, yInicio, yFim, funcao } = funcoes[i];
+        const { xInicio, xFim, yInicio, yFim, funcao, cor } = funcoes[i];
         if (x > xInicio && x < xFim && y > yInicio && y < yFim) {
             if (graficoAtual !== funcao.name) {
-                funcao();
+                funcao(cor);
                 graficoAtual = funcao.name;
             }
             return true;
@@ -133,19 +133,19 @@ function loopDesenho() {
 iniciarVideo();
 loopDesenho();
 
-function ordenarMedalhas() {
+function ordenarMedalhas(cor) {
     console.log("Ordenar Medalhas foi chamado");
     pegarMedalhas().then(dados => {
         console.log("Dados recebidos da API: ", dados);
         const paises = dados.data;
         paises.sort((a, b) => b.total_medals - a.total_medals);
-        desenharGrafico(paises.map(pais => [pais.name, pais.total_medals]), 'Medalhas por País');
+        desenharGrafico(paises.map(pais => [pais.name, pais.total_medals]), 'Medalhas por País', cor);
     }).catch(error => {
         console.error("Erro ao pegar dados da API:", error);
     });
 }
 
-function agruparPorContinente() {
+function agruparPorContinente(cor) {
     console.log("Agrupar por Continente foi chamado");
     pegarMedalhas().then(dados => {
         console.log("Dados recebidos da API: ", dados);
@@ -159,13 +159,13 @@ function agruparPorContinente() {
             acc[pais.continent].bronze += pais.bronze_medals;
             return acc;
         }, {});
-        desenharGrafico(Object.entries(continentes).map(([continente, medalhas]) => [continente, medalhas.ouro + medalhas.prata + medalhas.bronze]), 'Medalhas por Continente');
+        desenharGrafico(Object.entries(continentes).map(([continente, medalhas]) => [continente, medalhas.ouro + medalhas.prata + medalhas.bronze]), 'Medalhas por Continente', cor);
     }).catch(error => {
         console.error("Erro ao pegar dados da API:", error);
     });
 }
 
-function rankearContinentes() {
+function rankearContinentes(cor) {
     console.log("Rankear Continentes foi chamado");
     pegarMedalhas().then(dados => {
         console.log("Dados recebidos da API: ", dados);
@@ -178,19 +178,19 @@ function rankearContinentes() {
             return acc;
         }, {});
         const ranking = Object.entries(continentes).sort((a, b) => b[1] - a[1]);
-        desenharGrafico(ranking, 'Ranking de Continentes');
+        desenharGrafico(ranking, 'Ranking de Continentes', cor);
     }).catch(error => {
         console.error("Erro ao pegar dados da API:", error);
     });
 }
 
-function limparGrafico() {
+function limparGrafico(cor) {
     console.log("Limpar Gráfico foi chamado");
-    desenharGrafico([], '');
+    desenharGrafico([], '', cor, true);
     graficoAtual = null;
 }
 
-function desenharGrafico(dados, titulo) {
+function desenharGrafico(dados, titulo, cor, limpar = false) {
     console.log("Desenhar Gráfico foi chamado com dados:", dados);
 
     if (chart) {
@@ -205,8 +205,8 @@ function desenharGrafico(dados, titulo) {
         datasets: [{
             label: titulo,
             data: values,
-            backgroundColor: 'rgba(0, 123, 255, 0.5)',
-            borderColor: 'rgba(0, 123, 255, 1)',
+            backgroundColor: cor,
+            borderColor: cor,
             borderWidth: 1
         }]
     };
@@ -218,11 +218,25 @@ function desenharGrafico(dados, titulo) {
             responsive: true,
             plugins: {
                 legend: {
-                    position: 'top',
+                    display: !limpar,
                 },
                 title: {
                     display: !!titulo,
                     text: titulo
+                }
+            },
+            scales: {
+                x: {
+                    display: !limpar,
+                    grid: {
+                        display: !limpar
+                    }
+                },
+                y: {
+                    display: !limpar,
+                    grid: {
+                        display: !limpar
+                    }
                 }
             }
         },

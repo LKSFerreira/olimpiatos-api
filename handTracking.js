@@ -34,7 +34,6 @@ function processarDadosMaos(marcos) {
         desenhando = false;
     } else {
         if (!desenhando) {
-            empurrarEstadoCanvas();
             [ultimoX, ultimoY] = [x1, y1];
         }
         desenhando = true;
