@@ -3,7 +3,7 @@
 Este projeto tem como objetivo consumir de forma criativa uma API, **OlimpiAtos API**, permite aos usuários exibir gráficos em tempo real utilizando gestos das mãos capturados através de uma webcam. O projeto combina detecção de mãos com **TensorFlow** e **MediaPipe**, além de fornecer dados sobre medalhas olímpicas utilizando uma API externa.
 
 ## Deploy do Projeto 🚀
-- **[OlimpiAtos API](https://hand-tracking-drawing.vercel.app/)**
+- **[OlimpiAtos API](https://lksferreira.github.io/olimpiatos-api)**
 
 ---
 
