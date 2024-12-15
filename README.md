@@ -55,4 +55,4 @@ Este projeto tem como objetivo consumir de forma criativa uma API, **OlimpiAtos 
 ---
 
 ## Referências 📚
-- Utilize o seguinte repostório como referência para a criação do projeto: *[Virtual Painter](https://github.com/Shubham7-1/Virtual-Painter)*
+- Utilizei o seguinte repostório como referência para a criação do projeto: *[Virtual Painter](https://github.com/Shubham7-1/Virtual-Painter)*
