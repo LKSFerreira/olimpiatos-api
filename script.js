@@ -5,36 +5,12 @@ const fpsDisplay = document.getElementById('fps');
 const ferramentaDisplay = document.getElementById('ferramenta');
 
 let espessuraPincel = 15;
-let espessuraBorracha = 50;
 let corDesenho = 'rgba(255, 0, 255, 1)';
 let desenhando = false;
 let ultimoX = 0;
 let ultimoY = 0;
-let pilhaDesfazer = [];
-let pilhaRefazer = [];
 let chart;
 let graficoAtual = null;
-
-function empurrarEstadoCanvas() {
-    pilhaDesfazer.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-    if (pilhaDesfazer.length > 10) pilhaDesfazer.shift();
-}
-
-function desfazer() {
-    if (pilhaDesfazer.length > 0) {
-        pilhaRefazer.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-        const imagem = pilhaDesfazer.pop();
-        ctx.putImageData(imagem, 0, 0);
-    }
-}
-
-function refazer() {
-    if (pilhaRefazer.length > 0) {
-        pilhaDesfazer.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-        const imagem = pilhaRefazer.pop();
-        ctx.putImageData(imagem, 0, 0);
-    }
-}
 
 async function iniciarVideo() {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -51,7 +27,7 @@ async function iniciarVideo() {
 
 function desenhar(x, y) {
     ctx.strokeStyle = corDesenho;
-    ctx.lineWidth = corDesenho === 'rgba(0, 0, 0, 1)' ? espessuraBorracha : espessuraPincel;
+    ctx.lineWidth = espessuraPincel;
     ctx.lineJoin = 'round';
     ctx.beginPath();
     ctx.moveTo(ultimoX, ultimoY);
@@ -62,7 +38,6 @@ function desenhar(x, y) {
 
 canvas.addEventListener('mousedown', (e) => {
     desenhando = true;
-    empurrarEstadoCanvas();
     [ultimoX, ultimoY] = [e.offsetX, e.offsetY];
 });
 
@@ -80,17 +55,12 @@ canvas.addEventListener('mouseleave', () => {
     desenhando = false;
 });
 
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'z') desfazer();
-    if (e.key === 'y') refazer();
-});
-
 function atualizarUI() {
     const tempoAtual = performance.now();
     const fps = Math.round(1000 / (tempoAtual - tempoAnterior));
     tempoAnterior = tempoAtual;
     fpsDisplay.innerText = `FPS: ${fps}`;
-    ferramentaDisplay.innerText = `Ferramenta: ${corDesenho === 'rgba(0, 0, 0, 1)' ? 'Borracha' : 'Pincel'}`;
+    ferramentaDisplay.innerText = `Ferramenta: Pincel`;
 }
 
 function desenharPaletaCores() {
@@ -102,27 +72,23 @@ function desenharPaletaCores() {
     ];
     const etiquetas = ['Ordenar Medalhas', 'Agrupar Continente', 'Rankear Continentes', 'Limpar Gráfico'];
 
-    // Definir o tamanho da fonte
-    ctx.font = 'bold 16px sans-serif'; // Aumente o tamanho da fonte aqui
+    ctx.font = 'bold 16px sans-serif';
 
     const larguraQuadrado = 100;
     const alturaQuadrado = 80;
-    const espacoEntre = 60; // Espaço entre as funcionalidades
+    const espacoEntre = 60;
 
     cores.forEach((item, i) => {
-        const x = 100 + i * (larguraQuadrado + espacoEntre); // Aumentar o espaço horizontal
+        const x = 100 + i * (larguraQuadrado + espacoEntre);
         const y = 10;
 
         ctx.fillStyle = item.cor;
         ctx.fillRect(x, y, larguraQuadrado, alturaQuadrado);
         ctx.fillStyle = 'black';
 
-        // Calcular a largura do texto
         const larguraTexto = ctx.measureText(etiquetas[i]).width;
-
-        // Centralizar o texto
-        const posX = x + (larguraQuadrado - larguraTexto) / 2; // Posição X centralizada
-        const posY = y + alturaQuadrado + 20; // Mantém o espaço entre o quadrado e o texto
+        const posX = x + (larguraQuadrado - larguraTexto) / 2;
+        const posY = y + alturaQuadrado + 20;
 
         ctx.fillText(etiquetas[i], posX, posY);
     });
@@ -220,11 +186,7 @@ function rankearContinentes() {
 
 function limparGrafico() {
     console.log("Limpar Gráfico foi chamado");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (chart) {
-        chart.destroy();
-        chart = null;
-    }
+    desenharGrafico([], '');
     graficoAtual = null;
 }
 
@@ -259,7 +221,7 @@ function desenharGrafico(dados, titulo) {
                     position: 'top',
                 },
                 title: {
-                    display: true,
+                    display: !!titulo,
                     text: titulo
                 }
             }

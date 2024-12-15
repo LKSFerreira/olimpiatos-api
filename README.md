@@ -5,6 +5,8 @@ Este projeto tem como objetivo consumir de forma criativa uma API, **OlimpiAtos 
 ## Deploy do Projeto 🚀
 - **[OlimpiAtos API](https://lksferreira.github.io/olimpiatos-api)**
 
+- **Observação**: Para uma melhor experiência, essa aplicação foi feita para desktop e é recomendado utilizar um zoom de 75% para uma melhor visualização.
+
 ---
 
 ## Principais Funcionalidades 🌟
