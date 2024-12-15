@@ -48,9 +48,9 @@ Este projeto tem como objetivo consumir de forma criativa uma API, **OlimpiAtos 
 
 ## Capturas de Tela 📸
 
-![image](https://github.)
+![image](https://github.com/LKSFerreira/olimpiatos-api/blob/main/exemplificacao_olimpatos-api.gif)
 
 ---
 
 ## Referências 📚
-- Utilize o seguinte repostório como referência para a criação do projeto: **[Virtual Painter](https://github.com/Shubham7-1/Virtual-Painter)
+- Utilize o seguinte repostório como referência para a criação do projeto: *[Virtual Painter](https://github.com/Shubham7-1/Virtual-Painter)*
