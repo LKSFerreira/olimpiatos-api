@@ -1,5 +1,5 @@
-// handTracking.js
-import { video, canvas, selecionarFuncao } from './script.js';
+import { video, canvas } from './script.js';
+import { selecionarFuncao } from './functions.js';
 
 let modelo;
 
