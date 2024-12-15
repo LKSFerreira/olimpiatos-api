@@ -24,20 +24,3 @@ video, canvas {
     height: 75%;
     object-fit: contain;
 }
-
-#fps, #ferramenta {
-    position: absolute;
-    color: white;
-    font-size: 20px;
-    z-index: 10;
-}
-
-#fps {
-    top: 10px;
-    left: 10px;
-}
-
-#ferramenta {
-    bottom: 10px;
-    left: 10px;
-}

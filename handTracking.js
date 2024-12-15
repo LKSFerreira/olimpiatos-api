@@ -1,3 +1,6 @@
+// handTracking.js
+import { video, canvas, selecionarFuncao } from './script.js';
+
 let modelo;
 
 async function carregarModelo() {

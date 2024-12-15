@@ -5,20 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OlimpiAtos API</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0" type="module"></script>
 </head>
 <body>
     <div class="container">
         <video id="video" autoplay playsinline></video>
         <canvas id="canvas"></canvas>
-        <div id="fps">FPS: 0</div>
-        <div id="ferramenta">Ferramenta: Pincel</div>
     </div>
-    <script src="script.js"></script>
-    <script src="handTracking.js"></script>
-    <script src="api.js"></script>
+    <script src="script.js" type="module"></script>
+    <script src="handTracking.js" type="module"></script>
+    <script src="api.js" type="module"></script>
 </body>
 </html>

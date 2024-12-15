@@ -1,18 +1,15 @@
-const video = document.getElementById('video');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d', { willReadFrequently: true });
-const fpsDisplay = document.getElementById('fps');
-const ferramentaDisplay = document.getElementById('ferramenta');
+// script.js
+import { pegarMedalhas } from './api.js';
 
-let espessuraPincel = 15;
-let corDesenho = 'rgba(255, 0, 255, 1)';
+export const video = document.getElementById('video');
+export const canvas = document.getElementById('canvas');
+export const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
 let desenhando = false;
-let ultimoX = 0;
-let ultimoY = 0;
 let chart;
 let graficoAtual = null;
 
-async function iniciarVideo() {
+export async function iniciarVideo() {
     const stream = await navigator.mediaDevices.getUserMedia({
         video: { width: { ideal: 1920 }, height: { ideal: 1080 }, facingMode: 'user' }
     });
@@ -48,8 +45,6 @@ function atualizarUI() {
     const tempoAtual = performance.now();
     const fps = Math.round(1000 / (tempoAtual - tempoAnterior));
     tempoAnterior = tempoAtual;
-    fpsDisplay.innerText = `FPS: ${fps}`;
-    ferramentaDisplay.innerText = `Ferramenta: Pincel`;
 }
 
 function desenharPaletaCores() {
@@ -83,7 +78,7 @@ function desenharPaletaCores() {
     });
 }
 
-function selecionarFuncao(x, y) {
+export function selecionarFuncao(x, y) {
     const funcoes = [
         { xInicio: 100, xFim: 200, yInicio: 10, yFim: 90, funcao: ordenarMedalhas, cor: 'rgba(255, 0, 0, 0.75)' },
         { xInicio: 250, xFim: 350, yInicio: 10, yFim: 90, funcao: agruparPorContinente, cor: 'rgba(0, 255, 0, 0.75)' },

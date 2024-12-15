@@ -1,3 +1,4 @@
+// api.js
 const BASE_URL = 'https://apis.codante.io/olympic-games';
 
 async function pegarDados(endpoint) {
@@ -13,6 +14,6 @@ async function pegarDados(endpoint) {
     }
 }
 
-async function pegarMedalhas() {
+export async function pegarMedalhas() {
     return await pegarDados('/countries');
 }
